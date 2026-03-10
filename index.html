@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+  <title>GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs</title>
+  <link rel="icon" type="image/x-icon" href="img/favicon.png">
+  <meta property="og:title" content="GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs"/>
+  <meta property="og:description" content="Cross-Component Rowhammer Attacks from Modern GPUs" />
+  <meta property="og:url" content="https://gddr.fail" />
+  <meta property="og:image" content="https://gddr.fail/img/gddrlogo.png" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y5LRV6X3GF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());  gtag('config', 'G-Y5LRV6X3GF');
+  </script>
+  <script>
+    function copy_to_clipboard(id) {
+      /* Get the text field */
+      var copyText = document.getElementById(id || "citeTextarea");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+    }
+
+    function collapse_toggle() {
+      for(var e of document.querySelectorAll(".collapse-toggle")) {
+        e.click();
+      }
+    }
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap and Font-Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css"
+    rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+<section id="abstract">
+      <div class="row justify-content-center g-3">
+
+        <!-- Card 1: GDDR -->
+        <div class="col-lg-6 col-12 d-flex">
+          <div class="card w-100">
+            <div class="card-body">
+              <div class="container">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-lg-4 col-sm-12">
+                    <img class="img-fluid" src="img/gddrlogo.png" id="logo" alt="GDDR Logo"
+                      style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;" />
+                  </div>
+                  <div class="col-lg-8 col-sm-12">
+                    <h1 class="text-left blue">GDDR: Greatly Disturbing DRAM Rows</h1>
+                    <h2 class="text-left">Cross-Component Rowammer Attacks from Modern GPUs</h2>
+                  </div>
+                </div>
+              </div>
+
+              <p class="card-text" style="margin-top: 2rem;">
+              <p>
+              In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, this sharing also demands strong security for these systems. When multiple users are sharing a GPU, that GPU becomes a potential attack vector. Previous work (TODO: how to cite here?) illustrated that GPUs are susceptible to the Rowhammer attack phenomenon.
+              However, they (TODO: change pronoun?) only found 8 bitflips on a single GPU, limiting the ability for a practical attack to be deployed.
+              </p>
+              <p>
+              In this work, we argue that the Rowhammer threat on GPUs is far more prevelant than demonstrated in (CITE). We provide a comprehensive characterization of <b>over 25</b> GPUs, finding Rowhammer bitflips in many of them, confirming Rowhammer is a widespread issue on GPUs.
+              To do so, we develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips per bank than previous work.
+              Leveraging the many flips we find, we then construct the first end-to-end exploit, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
+              </p>
+            </div>
+
+            <div class="card-body border-top">
+              <h5 style="padding-top: 10px;">Our Team</h5>
+              <div class="container">
+                <div class="row align-items-center">
+                  <div class="col-12">
+                    <ul>
+                      <li>
+                        <a href="https://hyichang0510.github.io/">Yichang Hu</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://noahabrown.org">Noah Brown</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="#">Yuhang Chen</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://jbakita.me/">Joshua Bakita</a>
+                        <span class="badge badge-mbzuai">
+                          <a class="univ" href="https://mbzuai.ac.ae/">Mohamed bin Zayed University of Artifical Intelligence</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://tianlong-chen.github.io/">Tianlong Chen</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://genkin.io">Daniel Genkin</a>
+                        <span class="badge badge-gatech">
+                          <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://andrewkwong.org">Andrew Kwong</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row justify-content-center align-items-center" style="margin-top: 10px; margin-bottom: 10px;">
+                  <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/unc.png" alt="UNC Chapel Hill" style="max-height: 80px;">
+                  </div>
+                  <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/gatech.png" alt="Georgia Institute of Technology" style="max-height: 80px;">
+                  </div>
+                </div>
+                <div class="row justify-content-center align-items-center" style="margin-bottom: 10px;">
+                  <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/mbzuai.svg" alt="Mohamed bin Zayed University of Artificial Intelligence" style="max-height: 80px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer text-center w-100">
+              <a href="files/gddr.pdf" class="btn btn-primary me-2"><i class="fa fa-file"></i> Read
+                the Paper</a>
+
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cite-gddr"><i
+                  class="fa fa-quote-right"></i> Cite</a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Card 2: GeForge -->
+        <div class="col-lg-6 col-12 d-flex">
+          <div class="card w-100">
+            <div class="card-body">
+              <div class="container">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-lg-4 col-sm-12">
+                    <img class="img-fluid" src="img/geforge-logo.png" id="logo2" alt="GeForge Logo"
+                      style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;" />
+                  </div>
+                  <div class="col-lg-8 col-sm-12">
+                    <h1 class="text-left blue">GeForge:</h1>
+                    <h2 class="text-left">Hammering GDDR Memory to Forge GPU Page Tables for Fun and Profit</h2>
+                  </div>
+                </div>
+              </div>
+
+              <p class="card-text" style="margin-top: 2rem;">
+              <p>
+              Lorem ipsum dolor
+              </p>
+              
+            </div>
+
+            <div class="card-body border-top">
+              <h5 style="padding-top: 10px;">Our Team</h5>
+              <div class="container">
+                <div class="row align-items-center">
+                  <div class="col-12">
+                    <ul>
+                      <li>
+                        <a href="https://hyichang0510.github.io/">Yichang Hu</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://noahabrown.org">Noah Brown</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="#">Yuhang Chen</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://jbakita.me/">Joshua Bakita</a>
+                        <span class="badge badge-mbzuai">
+                          <a class="univ" href="https://mbzuai.ac.ae/">Mohamed bin Zayed University of Artifical Intelligence</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://tianlong-chen.github.io/">Tianlong Chen</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://genkin.io">Daniel Genkin</a>
+                        <span class="badge badge-gatech">
+                          <a class="univ" href="https://www.gatech.edu/">Georgia Institute of Technology</a>
+                        </span>
+                      </li>
+                      <li>
+                        <a href="https://andrewkwong.org">Andrew Kwong</a>
+                        <span class="badge badge-unc">
+                          <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="row justify-content-center align-items-center" style="margin-top: 10px; margin-bottom: 10px;">
+                  <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/unc.png" alt="UNC Chapel Hill" style="max-height: 80px;">
+                  </div>
+                  <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/gatech.png" alt="Georgia Institute of Technology" style="max-height: 80px;">
+                  </div>
+                </div>
+                <div class="row justify-content-center align-items-center" style="margin-bottom: 10px;">
+                  <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/mbzuai.svg" alt="Mohamed bin Zayed University of Artificial Intelligence" style="max-height: 80px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer text-center w-100">
+              <a href="files/geforge.pdf" class="btn btn-primary me-2"><i class="fa fa-file"></i> Read
+                the Paper</a>
+
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cite-geforge"><i
+                  class="fa fa-quote-right"></i> Cite</a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <div class="container">
+    <section id="qa">
+      <div style="padding-top: 30px;">
+      <h4 style="display: inline;">Frequently Asked Questions</h4>
+      <a href="javascript:collapse_toggle()" class="btn btn-primary me-auto" style="display: inline;">Hide/Show All</a>
+      </div>
+
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-0"
+                aria-expanded="true" aria-controls="answer-0-0">
+                What is GDDR6?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-0" class="collapse" aria-labelledby="question-0-0">
+            <div class="card-body">
+              <p>
+                Just like how computers use some amount of DRAM for their physical memory, GPUs also use DRAM for their own physical memory.
+                The form factor is different, however, thus the prefix <b>G</b>DDR. GDDR6 is a specification for this memory type, and is the main type of GDRR in GPUs released in the last few years.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-1"
+                aria-expanded="true" aria-controls="answer-0-1">
+                What systems are susceptible to this attack?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-1" class="collapse" aria-labelledby="question-0-1">
+            <div class="card-body">
+              <p>
+                We believe any system employing an A6000 GPU may be susceptible to this attack. (TODO: quantify?)
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-2">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-2"
+                aria-expanded="true" aria-controls="answer-0-2">
+                What can I do to protect myself from this attack?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-2" class="collapse" aria-labelledby="question-0-2">
+            <div class="card-body">
+              <p>
+                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations. (TODO: cite?).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-3">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-3"
+                aria-expanded="true" aria-controls="answer-0-3">
+                Will an antivirus block this attack?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-3" class="collapse" aria-labelledby="question-0-3">
+            <div class="card-body">
+              <p>
+                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely (TODO: can we be stronger?) that an antivirus would catch this attack.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 style="padding-top: 20px;">Miscellaneous</h4>
+
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-0">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-0"
+                aria-expanded="true" aria-controls="answer-1-0">
+                Can I use your logos?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-0" class="collapse" aria-labelledby="question-1-0">
+            <div class="card-body">
+              <p>
+                Yes, with rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. You can download the logo here:<br>
+                <a href="img/gddrlogo.png" download>PNG</a>, <a href="img/gddrlogo.svg" download>SVG</a><br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="acknowledgments">
+      <h4>Acknowledgments</h4>
+      <div class="block">
+        <p>
+          This research was supported by TODO
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- Cite modals -->
+  <div class="modal fade" id="cite-gddr" tabindex="-1" role="dialog" aria-labelledby="citeGddrTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeGddrTitle">Cite GDDR</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control rounded-0" id="citeTextareaGddr" rows="8" readonly>
+@inproceedings{gddr,
+    title     = {GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs},
+    booktitle = {},
+    author    = {},
+    url       = {},
+    publisher = {},
+    year      = {2026},
+}</textarea>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:copy_to_clipboard('citeTextareaGddr')" class="btn btn-primary me-auto"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to clipboard</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="cite-geforge" tabindex="-1" role="dialog" aria-labelledby="citeGeforgeTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="citeGeforgeTitle">Cite GeForge</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control rounded-0" id="citeTextareaGeforge" rows="8" readonly>
+@inproceedings{geforge,
+    title     = {TODO},
+    booktitle = {TODO},
+    author    = {TODO},
+    url       = {TODO},
+    publisher = {TODO},
+    year      = {2026},
+}</textarea>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:copy_to_clipboard('citeTextareaGeforge')" class="btn btn-primary me-auto"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy to clipboard</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="text-center w-100">
+      <span>Copyright &copy; 2026 University of North Carolina at Chapel Hill. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
