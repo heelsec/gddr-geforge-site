@@ -63,7 +63,7 @@
               <p class="lead mb-3" style="text-align: justify;">
               In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, this sharing also demands strong security for these systems. When multiple users are sharing a GPU, that GPU becomes a potential attack vector. Previous work (TODO: how to cite here?) illustrated that GPUs are susceptible to the Rowhammer attack phenomenon.
               However, they (TODO: change pronoun?) only found 8 bitflips on a single GPU, limiting the ability for a practical attack to be deployed.
-              In our works, we argue that the Rowhammer threat on GPUs is far more prevelant than demonstrated in (CITE). 
+              In our works, we argue that the Rowhammer threat on GPUs is far more prevalent than demonstrated in (CITE). 
               The <b>GDDR</b> and <b>GeForge</b> teams independently discovered exploits in the memory allocators for NVIDIA GPUs, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
               </p>
             </div>
@@ -91,7 +91,7 @@
               <p class="card-text" style="margin-top: 2rem;">
               In our work, we develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips per bank than previous work.
               We also discover an exploit in the default memory allocator (i.e., <i>cudaMalloc</i>) that breaks the isolation of page tables and user data on the GPU.
-              Leveraging numerous flips and the allocator exploit, we then construct an end-to-end exploit, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
+              Armed with numerous flips and the allocator exploit, we then construct an end-to-end exploit, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
               In addition, we provide a comprehensive characterization of Rowhammer, testing on <b>over 20</b> GDDR6 GPUs and reporting our findings.
               </p>
             </div>
