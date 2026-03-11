@@ -56,6 +56,20 @@
   <div class="container">
 <section id="abstract">
       <div class="row justify-content-center g-3">
+        <div class="col-12 d-flex">
+          <div class="card w-100">
+            <div class="card-body text-center py-4">
+              <h1 class="blue mb-3">GPU Memory Exploits</h1> <!-- (TODO: better linking title?) -->
+              <p class="lead mb-3" style="text-align: justify;">
+              In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, this sharing also demands strong security for these systems. When multiple users are sharing a GPU, that GPU becomes a potential attack vector. Previous work (TODO: how to cite here?) illustrated that GPUs are susceptible to the Rowhammer attack phenomenon.
+              However, they (TODO: change pronoun?) only found 8 bitflips on a single GPU, limiting the ability for a practical attack to be deployed.
+              In our works, we argue that the Rowhammer threat on GPUs is far more prevelant than demonstrated in (CITE). 
+              The <b>GDDR</b> and <b>GeForge</b> teams independently discovered exploits in the memory allocators for NVIDIA GPUs, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
+              </p>
+            </div>
+          </div>
+        </div>
+
 
         <!-- Card 1: GDDR -->
         <div class="col-lg-6 col-12 d-flex">
@@ -75,14 +89,10 @@
               </div>
 
               <p class="card-text" style="margin-top: 2rem;">
-              <p>
-              In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, this sharing also demands strong security for these systems. When multiple users are sharing a GPU, that GPU becomes a potential attack vector. Previous work (TODO: how to cite here?) illustrated that GPUs are susceptible to the Rowhammer attack phenomenon.
-              However, they (TODO: change pronoun?) only found 8 bitflips on a single GPU, limiting the ability for a practical attack to be deployed.
-              </p>
-              <p>
-              In this work, we argue that the Rowhammer threat on GPUs is far more prevelant than demonstrated in (CITE). We provide a comprehensive characterization of <b>over 25</b> GPUs, finding Rowhammer bitflips in many of them, confirming Rowhammer is a widespread issue on GPUs.
-              To do so, we develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips per bank than previous work.
-              Leveraging the many flips we find, we then construct the first end-to-end exploit, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
+              In our work, we develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips per bank than previous work.
+              We also discover an exploit in the default memory allocator (i.e., <i>cudaMalloc</i>) that breaks the isolation of page tables and user data on the GPU.
+              Leveraging numerous flips and the allocator exploit, we then construct an end-to-end exploit, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
+              In addition, we provide a comprehensive characterization of Rowhammer, testing on <b>over 20</b> GDDR6 GPUs and reporting our findings.
               </p>
             </div>
 
@@ -147,7 +157,7 @@
                 </div>
                 <div class="row justify-content-center align-items-center" style="margin-bottom: 10px;">
                   <div class="col-6 text-center" style="padding: 10px;">
-                    <img class="logo-img img-fluid" src="img/mbzuai.svg" alt="Mohamed bin Zayed University of Artificial Intelligence" style="max-height: 80px;">
+                    <img class="logo-img img-fluid" src="img/mbzuai_new.svg" alt="Mohamed bin Zayed University of Artificial Intelligence" style="max-height: 80px;">
                   </div>
                 </div>
               </div>
@@ -249,7 +259,7 @@
                 </div>
                 <div class="row justify-content-center align-items-center" style="margin-bottom: 10px;">
                   <div class="col-6 text-center" style="padding: 10px;">
-                    <img class="logo-img img-fluid" src="img/mbzuai.svg" alt="Mohamed bin Zayed University of Artificial Intelligence" style="max-height: 80px;">
+                    <img class="logo-img img-fluid" src="img/mbzuai_new.svg" alt="Mohamed bin Zayed University of Artificial Intelligence" style="max-height: 80px;">
                   </div>
                 </div>
               </div>
