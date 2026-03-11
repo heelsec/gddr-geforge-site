@@ -7,7 +7,7 @@ body {
 .btn,
 .btn-primary:active {
   /* background: #ffaa00; */
-  background: #222222;
+  background: #333333;
   border: #000000;
   border-radius: 10px;
 }
@@ -72,7 +72,7 @@ h5 {
 }
 
 #abstract .card {
-  background: #202020;
+  background: #333333; /* TODO: find a better BG color? current one is a bit light, but darker makes MBZUAI logo hard to read*/
 }
 
 #people>div {
