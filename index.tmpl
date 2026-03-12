@@ -83,16 +83,15 @@
                   </div>
                   <div class="col-lg-8 col-sm-12">
                     <h1 class="text-left blue">GDDR: Greatly Disturbing DRAM Rows</h1>
-                    <h2 class="text-left">Cross-Component Rowammer Attacks from Modern GPUs</h2>
+                    <h2 class="text-left">Cross-Component Rowhammer Attacks from Modern GPUs</h2>
                   </div>
                 </div>
               </div>
 
               <p class="card-text" style="margin-top: 2rem;">
-              In our work, we develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips per bank than previous work.
+              In this work, we provide a Rowhammer characterization of <b>25</b> GDDR6 GPUs. We develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips than previously found.
               We also discover an exploit in the default memory allocator (i.e., <i>cudaMalloc</i>) that breaks the isolation of page tables and user data on the GPU.
-              Armed with numerous flips and the allocator exploit, we then construct an end-to-end exploit, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
-              In addition, we provide a comprehensive characterization of Rowhammer, testing on <b>over 20</b> GDDR6 GPUs and reporting our findings.
+              We then attack a GPU <b>page table</b>, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
               </p>
             </div>
 
@@ -166,6 +165,8 @@
             <div class="card-footer text-center w-100">
               <a href="files/gddr.pdf" class="btn btn-primary me-2"><i class="fa fa-file"></i> Read
                 the Paper</a>
+
+              <a href="files/gddr.pdf" class="btn btn-primary me-2"><i class="fa fa-code"></i> Code</a>
 
               <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cite-gddr"><i
                   class="fa fa-quote-right"></i> Cite</a>
