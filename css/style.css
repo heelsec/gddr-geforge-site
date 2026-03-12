@@ -165,6 +165,10 @@ li {
   margin-left: 5px;
 }
 
+.badge-ru {
+  background-color: #0033A0;
+}
+
 .badge-gatech {
   background-color: #b3a369;
 }
