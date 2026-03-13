@@ -195,7 +195,9 @@
 
               <p class="card-text" style="margin-top: 2rem;">
               <p>
-              GeForge TBD
+              GeForge is an end-to-end GPU Rowhammer attack. By leveraging a novel memory-massaging strategy to exploit GDDR6 bit flips, it corrupts GPU page tables and seizes control of address translation. This grants attackers arbitrary read/write access across GPU contexts, along with direct host memory access via enabling the "system aperture" bit. Ultimately, GeForge allows an unprivileged user to achieve  <b>root privilege escalation on the host system</b>.
+              <br>
+              To facilitate GeForge attacks, we propose a refresh-synchronized, non-uniform GPU Rowhammer pattern. We triggered over 1,000 bit flips on an RTX 3060 and over 160 on an RTX A6000 with this pattern, yielding >130x and >20x improvements over the 8 bit flips achieved in prior work. Additionally, our page anchoring technique locates GPU physical addresses at runtime. The page anchoring technique makes GeForge more practical by splitting the time-consuming memory mapping procedure into a heavy offline phase and a lightweight online phase.
               </p>
               
             </div>
@@ -208,8 +210,11 @@
                     <ul>
                       <li>
                         <a href="https://stefan1wan.github.io/">Junpeng Wan</a>
-                        <span class="badge badge-gatech">
-                          <a class="univ" href="https://purdue.edu/">Purdue University</a>
+                        <span class="badge badge-clemson">
+                          <a class="univ" href="https://purdue.edu/">Clemson University </a>
+                        </span>
+                          <span class="badge badge-purdue">
+                          <a class="univ" href="https://purdue.edu/"> Purdue University </a>
                         </span>
                       </li>
                       <li>
@@ -232,13 +237,13 @@
                       </li>
                       <li>
                         <a href="https://davejingtian.org/about/">Dave (Jing) Tian</a>
-                        <span class="badge badge-gatech">
+                        <span class="badge badge-purdue">
                           <a class="univ" href="https://purdue.edu/">Purdue University</a>
                         </span>
                       </li>
                       <li>
                         <a href="https://zhenkai-zhang.github.io/">Zhenkai Zhang</a>
-                        <span class="badge badge-purdue">
+                        <span class="badge badge-clemson">
                           <a class="univ" href="https://www.clemson.edu/">Clemson University</a>
                         </span>
                       </li>
@@ -246,16 +251,30 @@
                   </div>
                 </div>
                 <div class="row justify-content-center align-items-center" style="margin-top: 10px; margin-bottom: 10px;">
+                <!--
                   <div class="col-6 text-center" style="padding: 10px;">
                     <img class="logo-img img-fluid" src="img/clemson.png" alt="Clemson" style="max-height: 80px;">
+                  </div>
+                -->
+                  <div class="col-6 text-center" style="padding:10px;">
+                    <div class="logo-bg">
+                      <img class="logo-img img-fluid" src="img/clemson.png" alt="Clemson">
+                    </div>
                   </div>
                   <div class="col-6 text-center" style="padding: 10px;">
                     <img class="logo-img img-fluid" src="img/purdue.png" alt="Purdue" style="max-height: 80px;">
                   </div>
                 </div>
                 <div class="row justify-content-center align-items-center" style="margin-top: 10px; margin-bottom: 10px;">
+                <!--
                   <div class="col-6 text-center" style="padding: 10px;">
                     <img class="logo-img img-fluid" src="img/ru.png" alt="ru" style="max-height: 80px;">
+                  </div>
+                -->
+                  <div class="col-6 text-center" style="padding:10px;">
+                    <div class="logo-bg">
+                      <img class="logo-img img-fluid" src="img/ru.png" alt="ru">
+                    </div>
                   </div>
                   <div class="col-6 text-center" style="padding: 10px;">
                     <img class="logo-img img-fluid" src="img/uwa.jpg" alt="UWA" style="max-height: 80px;">
@@ -263,7 +282,7 @@
                 </div>
                 <div class="row justify-content-center align-items-center" style="margin-bottom: 10px;">
                   <div class="col-6 text-center" style="padding: 10px;">
-                    <img class="logo-img img-fluid" src="img/hydroxai.jpg" alt="hydroxai" style="max-height: 80px;">
+                    <img class="logo-img img-fluid" src="img/hydroxai.png" alt="hydroxai" style="max-height: 80px;">
                   </div>
                 </div>
               </div>
