@@ -185,9 +185,18 @@ li {
   background-color: #b3a369;
 }
 
-.badge-purdue {
+.badge-uwa {
   background-color: #B89C6A;
 }
+.badge-clemson {
+  background-color: #7BAFD4;
+}
+
+
+.badge-purdue {
+  background-color: #000000;
+}
+
 
 .badge-unc {
   background-color: #7BAFD4;
