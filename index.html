@@ -194,11 +194,11 @@
               </div>
 
               <p class="card-text" style="margin-top: 2rem;">
-              <p>
-              GeForge is an end-to-end GPU Rowhammer attack. By leveraging a novel memory-massaging strategy to exploit GDDR6 bit flips, it corrupts GPU page tables and seizes control of address translation. This grants attackers arbitrary read/write access across GPU contexts, along with direct host memory access via enabling the "system aperture" bit. Ultimately, GeForge allows an unprivileged user to achieve  <b>root privilege escalation on the host system</b>.
-              <br>
-              To facilitate GeForge attacks, we propose a refresh-synchronized, non-uniform GPU Rowhammer pattern. We triggered over 1,000 bit flips on an RTX 3060 and over 160 on an RTX A6000 with this pattern, yielding >130x and >20x improvements over the 8 bit flips achieved in prior work. Additionally, our page anchoring technique locates GPU physical addresses at runtime. The page anchoring technique makes GeForge more practical by splitting the time-consuming memory mapping procedure into a heavy offline phase and a lightweight online phase.
-              </p>
+            <p>
+            By corrupting GPU page table translations via GDDR6 bit flips, GeForge enables arbitrary read/write access to the GPU memory space and even the host memory when the IOMMU is disabled. Building on this capability, GeForge allows an unprivileged user to obtain a root shell.
+            <br>
+            To realize GeForge, we propose several key techniques: a memory-massaging strategy that steers GPU page tables toward vulnerable bits, a non-uniform Rowhammer pattern that found more bit flips (>130×/20x on RTX 3060/RTX A6000), and a page-anchoring technique that locates GPU physical addresses at runtime.
+            </p>
               
             </div>
 
@@ -210,11 +210,11 @@
                     <ul>
                       <li>
                         <a href="https://stefan1wan.github.io/">Junpeng Wan</a>
-                        <span class="badge badge-clemson">
-                          <a class="univ" href="https://purdue.edu/">Clemson University </a>
-                        </span>
-                          <span class="badge badge-purdue">
+                        <span class="badge badge-purdue">
                           <a class="univ" href="https://purdue.edu/"> Purdue University </a>
+                        </span>
+                        <span class="badge badge-clemson">
+                          <a class="univ" href="https://www.clemson.edu/">Clemson University </a>
                         </span>
                       </li>
                       <li>
@@ -256,15 +256,18 @@
                     <img class="logo-img img-fluid" src="img/clemson.png" alt="Clemson" style="max-height: 80px;">
                   </div>
                 -->
-                  <div class="col-6 text-center" style="padding:10px;">
+                <div class="col-6 text-center" style="padding: 10px;">
+                    <img class="logo-img img-fluid" src="img/purdue.png" alt="Purdue" style="max-height: 80px;">
+                </div>
+                
+
+                <div class="col-6 text-center" style="padding:10px;">
                     <div class="logo-bg">
                       <img class="logo-img img-fluid" src="img/clemson.png" alt="Clemson">
                     </div>
-                  </div>
-                  <div class="col-6 text-center" style="padding: 10px;">
-                    <img class="logo-img img-fluid" src="img/purdue.png" alt="Purdue" style="max-height: 80px;">
-                  </div>
                 </div>
+                </div>
+  
                 <div class="row justify-content-center align-items-center" style="margin-top: 10px; margin-bottom: 10px;">
                 <!--
                   <div class="col-6 text-center" style="padding: 10px;">
@@ -397,14 +400,14 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-4"
                 aria-expanded="true" aria-controls="answer-0-4">
-                How can the GeForge root privilege escalation be further mitigated?
+                How can the root privilege escalation be further mitigated?
               </button>
             </h6>
           </div>
           <div id="answer-0-4" class="collapse" aria-labelledby="question-0-4">
             <div class="card-body">
               <p>
-                Enabling an IOMMU (Input-Output Memory Management Unit) on your host system is an effective mitigation. On Linux systems, this can be configured by adding <code>intel_iommu=on</code> (for Intel processors) or <code>amd_iommu=on</code> (for AMD processors) to your kernel boot parameters. While this configuration does not prevent the underlying Rowhammer bit flips within the GPU memory, it restricts the GPU's direct memory access (DMA), effectively blocking GeForge from accessing host memory.
+                Enabling an IOMMU (Input-Output Memory Management Unit) on your host system is an effective mitigation. On Linux systems, this can be configured by adding <code>intel_iommu=on</code> (for Intel processors) or <code>amd_iommu=on</code> (for AMD processors) to your kernel boot parameters. While this configuration does not prevent the underlying Rowhammer bit flips within the GPU memory, it restricts the GPU's arbitrary memory access (DMA), thus effectively preventing root privilege escalation.
               </p>
             </div>
           </div>
