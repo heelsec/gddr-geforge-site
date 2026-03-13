@@ -161,6 +161,18 @@ li {
   margin-bottom: 5px;
 }
 
+.logo-bg {
+  display: inline-block;
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.logo-img {
+  max-height: 80px;
+}
+
+
 .badge {
   margin-left: 5px;
 }
@@ -171,6 +183,10 @@ li {
 
 .badge-gatech {
   background-color: #b3a369;
+}
+
+.badge-purdue {
+  background-color: #B89C6A;
 }
 
 .badge-unc {
