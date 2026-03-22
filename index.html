@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
-  <title>GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs</title>
+  <title>GPU Memory Exploits</title>
   <link rel="icon" type="image/x-icon" href="img/favicon.png">
-  <meta property="og:title" content="GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs"/>
+  <meta property="og:title" content="GPU Memory Exploits"/>
   <meta property="og:description" content="Cross-Component Rowhammer Attacks from Modern GPUs" />
   <meta property="og:url" content="https://gddr.fail" />
   <meta property="og:image" content="https://gddr.fail/img/gddrlogo.png" />
@@ -62,10 +62,10 @@
               <h1 class="blue mb-3">GPU Memory Exploits</h1> <!-- (TODO: better linking title?) -->
               <p class="lead mb-3" style="text-align: justify;">
               In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, this sharing also demands strong security for these systems. When multiple users are sharing a GPU, that GPU becomes a potential attack vector. 
-              <a href="https://gururaj-s.github.io/assets/pdf/SEC25_GPUHammer.pdf"> GPUHammer</a> illustrated that GPUs are susceptible to the Rowhammer attack phenomenon,
+              GPUHammer illustrated that GPUs are susceptible to the Rowhammer attack phenomenon,
               but only found 8 bitflips on a single GPU, limiting the ability for a practical attack to be deployed.
               In our works, we argue that the Rowhammer threat on GPUs is far more prevalent. 
-              The <b>GDDR</b> and <b>GeForge</b> teams independently discovered exploits in the memory allocators for NVIDIA GPUs, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
+              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently discovered exploits in the memory allocators for NVIDIA GPUs, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
               </p>
             </div>
           </div>
@@ -83,16 +83,17 @@
                       style="max-height: 400px; display: block; margin-left: auto; margin-right: auto;" />
                   </div>
                   <div class="col-lg-8 col-sm-12">
-                    <h1 class="text-left blue">GDDR: Greatly Disturbing DRAM Rows</h1>
-                    <h2 class="text-left">Cross-Component Rowhammer Attacks from Modern GPUs</h2>
+                    <h1 class="text-left blue">GDDRHammer:</h1>
+                    <h2 class="text-left">Greatly Disturbing DRAM Rows -- Cross-Component Rowhammer Attacks from Modern GPUs</h2>
                   </div>
                 </div>
               </div>
 
               <p class="card-text" style="margin-top: 2rem;">
-              In this work, we provide a Rowhammer characterization of <b>25</b> GDDR6 GPUs. We develop new techniques for bypassing in-device Rowhammer mitigations, producing <b>~50x</b> more flips than previously found.
-              We also discover an exploit in the default memory allocator (i.e., <i>cudaMalloc</i>) that breaks the isolation of page tables and user data on the GPU.
-              We then attack a GPU <b>page table</b>, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
+              In this work, we provide a Rowhammer characterization of <b>25</b> GDDR6 GPUs, including Ampere and Ada 6000 GPUs. 
+              We develop new techniques for bypassing in-device Rowhammer mitigations utilizing the GPU's parallelism, producing <b>~50x</b> more flips than previously found.
+              <br>We also discover an exploit in the default memory allocator (i.e., <i>cudaMalloc</i>) that breaks the isolation of page tables and user data on the GPU.
+              We then override a GPU <b>page table entry</b>, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
               </p>
             </div>
 
@@ -197,7 +198,7 @@
             <p>
             By corrupting GPU page table translations via GDDR6 bit flips, GeForge enables arbitrary read/write access to the GPU memory space and even the host memory when the IOMMU is disabled. Building on this capability, GeForge allows an unprivileged user to obtain a root shell.
             <br>
-            To realize GeForge, we propose several key techniques: a memory-massaging strategy that steers GPU page tables toward vulnerable bits, a non-uniform Rowhammer pattern that found more bit flips (>130×/20x on RTX 3060/RTX A6000), and a page-anchoring technique that locates GPU physical addresses at runtime.
+            To realize GeForge, we propose several key techniques: a memory-massaging strategy that steers GPU page tables toward vulnerable bits, a non-uniform Rowhammer pattern that found more bit flips (>130�/20x on RTX 3060/RTX A6000), and a page-anchoring technique that locates GPU physical addresses at runtime.
             </p>
               
             </div>
@@ -484,7 +485,7 @@
         <div class="modal-body">
           <textarea class="form-control rounded-0" id="citeTextareaGddr" rows="8" readonly>
 @inproceedings{gddr,
-    title     = {GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs},
+    title     = {GDDR: Greatly Disturbing DRAM Rows � Cross-Component Rowhammer Attacks from Modern GPUs},
     booktitle = {},
     author    = {},
     url       = {},
