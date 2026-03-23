@@ -198,7 +198,7 @@
             <p>
             By corrupting GPU page table translations via GDDR6 bit flips, GeForge enables arbitrary read/write access to the GPU memory space and even the host memory when the IOMMU is disabled. Building on this capability, GeForge allows an unprivileged user to obtain a root shell.
             <br>
-            To realize GeForge, we propose several key techniques: a memory-massaging strategy that steers GPU page tables toward vulnerable bits, a non-uniform Rowhammer pattern that found more bit flips (>130×/20x on RTX 3060/RTX A6000), and a page-anchoring technique that locates GPU physical addresses at runtime.
+            To realize GeForge, we propose several key techniques: a memory-massaging strategy that steers GPU page tables toward vulnerable bits, a non-uniform Rowhammer pattern that found more bit flips (>130Ã—/20x on RTX 3060/RTX A6000), and a page-anchoring technique that locates GPU physical addresses at runtime.
             </p>
               
             </div>
@@ -331,7 +331,7 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-0"
                 aria-expanded="true" aria-controls="answer-0-0">
-                What is GDDR6?
+                What is GDDR6? Am I affected?
               </button>
             </h6>
           </div>
@@ -339,7 +339,7 @@
             <div class="card-body">
               <p>
                 Just like how computers use some amount of DRAM for their physical memory, GPUs also use DRAM for their own physical memory.
-                The form factor is different, however, thus the prefix <b>G</b>DDR. GDDR6 is a specification for this memory type, and is the main type of GDRR in GPUs released in the last few years.
+                The form factor is different, however, thus the prefix <b>G</b>DDR. GDDR6 is a specification for this memory type, and is the main type of GDRR in GPUs released in the last few years. We believe any system employing a <b>Nvidia RTX Ampere A6000</b> GPU may be susceptible to this attack. (TODO: quantify?)
               </p>
             </div>
           </div>
@@ -351,14 +351,15 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-1"
                 aria-expanded="true" aria-controls="answer-0-1">
-                What systems are susceptible to this attack?
+                What's the main difference between GDDRhammer and GeForge?
               </button>
             </h6>
           </div>
           <div id="answer-0-1" class="collapse" aria-labelledby="question-0-1">
             <div class="card-body">
               <p>
-                We believe any system employing an A6000 GPU may be susceptible to this attack. (TODO: quantify?)
+                
+                One main differnce is that GDDRHammer exploits the last level page table (PT) and Geforge exploits the last level page directory (PD0). However, both work are able to achieve the same goal of higijacking the GPU page table translation to gain read/write access to the GPU and Host memory.
               </p>
             </div>
           </div>
@@ -370,14 +371,14 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-2"
                 aria-expanded="true" aria-controls="answer-0-2">
-                What can I do to protect myself from this attack?
+                Will an antivirus block this attack?
               </button>
             </h6>
           </div>
           <div id="answer-0-2" class="collapse" aria-labelledby="question-0-2">
             <div class="card-body">
               <p>
-                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations. (TODO: cite?).
+                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely (TODO: can we be stronger?) that an antivirus would catch this attack.
               </p>
             </div>
           </div>
@@ -389,14 +390,14 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-3"
                 aria-expanded="true" aria-controls="answer-0-3">
-                Will an antivirus block this attack?
+                What can I do to protect myself from this attack?
               </button>
             </h6>
           </div>
           <div id="answer-0-3" class="collapse" aria-labelledby="question-0-3">
             <div class="card-body">
               <p>
-                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely (TODO: can we be stronger?) that an antivirus would catch this attack.
+                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations. (TODO: cite?).
               </p>
             </div>
           </div>
@@ -416,26 +417,6 @@
             <div class="card-body">
               <p>
                 Enabling an IOMMU (Input-Output Memory Management Unit) on your host system is an effective mitigation. On Linux systems, this can be configured by adding <code>intel_iommu=on</code> (for Intel processors) or <code>amd_iommu=on</code> (for AMD processors) to your kernel boot parameters. While this configuration does not prevent the underlying Rowhammer bit flips within the GPU memory, it restricts the GPU's arbitrary memory access (DMA), thus effectively preventing root privilege escalation.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="accordion">
-        <div class="card">
-          <div id="question-0-5">
-            <h6>
-              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-5"
-                aria-expanded="true" aria-controls="answer-0-5">
-                What's the main difference between GDDRhammer and GeForge?
-              </button>
-            </h6>
-          </div>
-          <div id="answer-0-5" class="collapse" aria-labelledby="question-0-5">
-            <div class="card-body">
-              <p>
-                
-                One main differnce is that GDDRHammer exploits the last level page table (PT) and Geforge exploits the last level page directory (PD0). However, both work are able to achieve the same goal of higijacking the GPU page table translation to gain read/write access to the GPU and Host memory.
               </p>
             </div>
           </div>
@@ -485,7 +466,7 @@
         <div class="modal-body">
           <textarea class="form-control rounded-0" id="citeTextareaGddr" rows="8" readonly>
 @inproceedings{gddr,
-    title     = {GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs},
+    title     = {GDDR: Greatly Disturbing DRAM Rows â€” Cross-Component Rowhammer Attacks from Modern GPUs},
     booktitle = {},
     author    = {},
     url       = {},
