@@ -61,13 +61,16 @@
             <div class="card-body text-center py-4">
               <h1 class="blue mb-3">GPU Memory Exploits</h1> <!-- (TODO: better linking title?) -->
               <p class="lead mb-3" style="text-align: justify;">
-              In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
+              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently found exploits that target NVIDIA GPU memory allocators, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel. In addition, we discover that substantially more bit flips can be triggered using novel Rowhammer techniques leveraging the inherent parallelism of GPUs.
+              </p>
+              <p class="lead mb-3" style="text-align: justify;">
+              Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
               </p>
               <p class="lead mb-3" style="text-align: justify;">
               <em>Are modern GPU memory systems resilient to Rowhammer attacks? What is the true prevalence of Rowhammer-induced bit flips on GPU hardware? How can such flips be exploited by attackers and what will it take to defend against them?</em>
               </p>
               <p class="lead mb-3" style="text-align: justify;">
-              We demonstrate that the Rowhammer threat on GPUs is far more prevalent. The <b>GDDRHammer</b> and <b>GeForge</b> teams independently discover that substantially more bit flips can be triggered using novel Rowhammer techniques in NVIDIA GPUs compared to prior work. Furthermore, by leveraging induced bit flips, we exploit the GPU memory allocators, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
+              We demonstrate that the Rowhammer threat on GPUs is severe and widespread. In addition, we construct exploits that attackers could use to steal secrets from a machine, as well as potential defenses against these attacks.
               </p>
             </div>
           </div>
@@ -440,7 +443,7 @@
             <div class="card-body">
               <p>
                 Yes, with rights waived via <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. You can download the logo here:<br>
-                <a href="img/gddrlogo.png" download>PNG</a>, <a href="img/gddrlogo.svg" download>SVG</a>, <a href="img/geforge-logo.png" download>GeForge</a>,<a href="img/geforge-logo.svg" download>GeForge SVG</a>  <br>
+                <a href="img/gddrlogo.png" download>GDDR PNG</a>, <a href="img/gddrlogo.svg" download>GDDR SVG</a>, <a href="img/geforge-logo.png" download>GeForge</a>,<a href="img/geforge-logo.svg" download>GeForge SVG</a>  <br>
               </p>
             </div>
           </div>
