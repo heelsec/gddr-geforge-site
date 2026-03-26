@@ -61,11 +61,13 @@
             <div class="card-body text-center py-4">
               <h1 class="blue mb-3">GPU Memory Exploits</h1> <!-- (TODO: better linking title?) -->
               <p class="lead mb-3" style="text-align: justify;">
-              In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, this sharing also demands strong security for these systems. When multiple users are sharing a GPU, that GPU becomes a potential attack vector. 
-              GPUHammer illustrated that GPUs are susceptible to the Rowhammer attack phenomenon,
-              but only found 8 bitflips on a single GPU, limiting the ability for a practical attack to be deployed.
-              In our works, we argue that the Rowhammer threat on GPUs is far more prevalent. 
-              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently discovered exploits in the memory allocators for NVIDIA GPUs, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
+              In recent years, the so-called "AI boom" has led to the widespread deployment of GPUs. Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
+              </p>
+              <p class="lead mb-3" style="text-align: justify;">
+              <em>Are modern GPU memory systems resilient to Rowhammer attacks? What is the true prevalence of Rowhammer-induced bit flips on GPU hardware? How can such flips be exploited by attackers and what will it take to defend against them?</em>
+              </p>
+              <p class="lead mb-3" style="text-align: justify;">
+              We demonstrate that the Rowhammer threat on GPUs is far more prevalent. The <b>GDDRHammer</b> and <b>GeForge</b> teams independently discover that substantially more bit flips can be triggered using novel Rowhammer techniques in NVIDIA GPUs compared to prior work. Furthermore, by leveraging induced bit flips, we exploit the GPU memory allocators, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel.
               </p>
             </div>
           </div>
@@ -116,7 +118,7 @@
                         </span>
                       </li>
                       <li>
-                        <a href="#">Yuhang Chen</a>
+                        <a href="https://yuhangchen0.github.io/">Yuhang Chen</a>
                         <span class="badge badge-unc">
                           <a class="univ" href="https://www.unc.edu/">UNC Chapel Hill</a>
                         </span>
@@ -168,7 +170,7 @@
               <a href="files/gddr.pdf" class="btn btn-primary me-2"><i class="fa fa-file"></i> Read
                 the Paper</a>
 
-              <a href="files/gddr.pdf" class="btn btn-primary me-2"><i class="fa fa-code"></i> Code</a>
+              <a href="https://github.com/heelsec/GDDRHammer" class="btn btn-primary me-2"><i class="fa fa-code"></i> Code</a>
 
               <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cite-gddr"><i
                   class="fa fa-quote-right"></i> Cite</a>
@@ -339,7 +341,7 @@
             <div class="card-body">
               <p>
                 Just like how computers use some amount of DRAM for their physical memory, GPUs also use DRAM for their own physical memory.
-                The form factor is different, however, thus the prefix <b>G</b>DDR. GDDR6 is a specification for this memory type, and is the main type of GDRR in GPUs released in the last few years. We believe any system employing a <b>Nvidia RTX Ampere A6000</b> GPU may be susceptible to this attack. (TODO: quantify?)
+                The form factor is different, however, thus the prefix <b>G</b>DDR. GDDR6 is a specification for this memory type, and is the main type of GDRR in GPUs released in the last few years. We believe any system employing modern GPU with GDDR6 memory may be susceptible to this attack.
               </p>
             </div>
           </div>
@@ -397,7 +399,7 @@
           <div id="answer-0-3" class="collapse" aria-labelledby="question-0-3">
             <div class="card-body">
               <p>
-                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations. (TODO: cite?).
+                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations, as shown in attacks like <a href="https://www.vusec.net/projects/eccploit/" target="_blank" rel="noopener noreferrer">ECCploit</a> and <a href="https://ecc.fail/" target="_blank" rel="noopener noreferrer">ECC.fail</a>.
               </p>
             </div>
           </div>
@@ -409,14 +411,14 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-4"
                 aria-expanded="true" aria-controls="answer-0-4">
-                How can the root privilege escalation be further mitigated?
+                Are GPUs with (High Bandwidth Memory) HBM vulnerable to Rowhammer attacks?
               </button>
             </h6>
           </div>
           <div id="answer-0-4" class="collapse" aria-labelledby="question-0-4">
             <div class="card-body">
               <p>
-                Enabling an IOMMU (Input-Output Memory Management Unit) on your host system is an effective mitigation. On Linux systems, this can be configured by adding <code>intel_iommu=on</code> (for Intel processors) or <code>amd_iommu=on</code> (for AMD processors) to your kernel boot parameters. While this configuration does not prevent the underlying Rowhammer bit flips within the GPU memory, it restricts the GPU's arbitrary memory access (DMA), thus effectively preventing root privilege escalation.
+                Currently, no. A100 (HBM2) and H100 (HBM3) feature on-die ECC, which likely masks single-bit flips. However, future Rowhammer patterns causing multi-bit flips may bypass such ECC, as shown in attacks like <a href="https://www.vusec.net/projects/eccploit/" target="_blank" rel="noopener noreferrer">ECCploit</a> and <a href="https://ecc.fail/" target="_blank" rel="noopener noreferrer">ECC.fail</a>.
               </p>
             </div>
           </div>
@@ -449,7 +451,7 @@
       <h4>Acknowledgments</h4>
       <div class="block">
         <p>
-          This research was supported by TODO
+          GDDRHammer was supported by the Air Force Office of Scientific Research (AFOSR) under award number FA9550-24-1-0079; the Alfred P. Sloan Research Fellowship; and gifts from Qualcomm and Zama.
         </p>
       </div>
     </section>
@@ -465,13 +467,14 @@
         </div>
         <div class="modal-body">
           <textarea class="form-control rounded-0" id="citeTextareaGddr" rows="8" readonly>
-@inproceedings{gddr,
-    title     = {GDDR: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs},
-    booktitle = {},
-    author    = {},
-    url       = {},
-    publisher = {},
+@inproceedings{gddrhammer,
+    title     = {GDDRHammer: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs},
+    booktitle = {Proceedings of the 2026 IEEE Symposium on Security and Privacy (SP)},
+    author    = {Yichang, Hu and Noah, Brown and Yuhang, Chen and Joshua, Bakita and Tianlong, Chen and Daniel, Genkin and Andrew, Kwong},
     year      = {2026},
+    month     = may,
+    publisher = {IEEE},
+    address   = {San Francisco, CA, USA},
 }</textarea>
         </div>
         <div class="modal-footer">
