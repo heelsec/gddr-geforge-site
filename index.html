@@ -449,6 +449,31 @@
           </div>
         </div>
       </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-1-1">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-1-1"
+                aria-expanded="true" aria-controls="answer-1-1">
+                Is there an attack demo?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-1-1" class="collapse" aria-labelledby="question-1-1">
+            <div class="card-body">
+              <p>
+                Yes. We provide several case studies in our papers. Below is a video demonstration of the <b>GeForge host-side privilege escalation attack</b>:
+                <div class="ratio ratio-16x9 mt-3">
+                <video controls poster="img/geforge-poster.png">
+                <source src="files/geforge_demo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+                </div>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <section id="acknowledgments">
       <h4>Acknowledgments</h4>
@@ -499,11 +524,12 @@
           <textarea class="form-control rounded-0" id="citeTextareaGeforge" rows="8" readonly>
 @inproceedings{geforge,
     title     = {GeForge: Hammering GDDR Memory to Forge GPU Page Tables for Fun and Profit},
-    booktitle = {TODO},
-    author    = {TODO},
-    url       = {TODO},
-    publisher = {TODO},
+    booktitle = {Proceedings of the 2026 IEEE Symposium on Security and Privacy (SP)},
+    author    = {Wan, Junpeng and Guo, Yanan and Zhang, Zhi and Li, Zhuo and Tian, Dave (Jing) and Zhang, Zhenkai},
     year      = {2026},
+    month     = may,
+    publisher = {IEEE},
+    address   = {San Francisco, CA, USA},
 }</textarea>
         </div>
         <div class="modal-footer">
