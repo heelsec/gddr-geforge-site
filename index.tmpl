@@ -61,17 +61,18 @@
             <div class="card-body text-center py-4">
               <h1 class="blue mb-3">GPU Memory Exploits</h1> <!-- (TODO: better linking title?) -->
               <p class="lead mb-3" style="text-align: justify;">
-              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently found exploits that target NVIDIA GPU memory allocators, allowing a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel. In addition, we discover that substantially more bit flips can be triggered using novel Rowhammer techniques leveraging the inherent parallelism of GPUs.
+              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently developed exploits that utilize Rowhammer bit flips on GPUs to enable a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel. In addition, we developed novel Rowhammer techniques that result in a dramatic increase in the number of bit flips found on GDDR6 memory.
               </p>
               <p class="lead mb-3" style="text-align: justify;">
-              Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
+              Rowhammer is a vulnerability in memory hardware that can enable attackers to induce bit flips in the memory. Our work demonstrates that these bit flips are widespread and that they pose a severe threat. By flipping bits in the GPU's page tables, we show how an attacker can gain arbitrary read/write access to the <em>CPU's</em> memory. This results in a complete compromise of the machine, allowing the attacker to modify memory at will and open a root shell to take over the machine.
+   <!--           Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
               </p>
               <p class="lead mb-3" style="text-align: justify;">
               <em>Are modern GPU memory systems resilient to Rowhammer attacks? What is the true prevalence of Rowhammer-induced bit flips on GPU hardware? How can such flips be exploited by attackers and what will it take to defend against them?</em>
               </p>
               <p class="lead mb-3" style="text-align: justify;">
               We demonstrate that the Rowhammer threat on GPUs is severe and widespread. In addition, we construct exploits that attackers could use to steal secrets from a machine, as well as potential defenses against these attacks.
-              </p>
+              </p> -->
             </div>
           </div>
         </div>
@@ -96,9 +97,9 @@
 
               <p class="card-text" style="margin-top: 2rem;">
               In this work, we provide a Rowhammer characterization of <b>25</b> GDDR6 GPUs, including Ampere and Ada 6000 GPUs. 
-              We develop new techniques for bypassing in-device Rowhammer mitigations utilizing the GPU's parallelism, producing <b>~50x</b> more flips than previously found.
+              We develop new techniques for bypassing in-device Rowhammer mitigations to conduct double-sided hammering utilizing the GPU's parallelism, producing on average <b>~64x</b> more flips than previously found.
               <br>We also discover an exploit in the default memory allocator (i.e., <i>cudaMalloc</i>) that breaks the isolation of page tables and user data on the GPU.
-              We then override a GPU <b>page table entry</b>, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
+              We then use a bit flip to overwrite a GPU <b>page table entry</b>, allowing a user to leverage the GPU to gain read/write access to <b>all of CPU memory</b>.
               </p>
             </div>
 
