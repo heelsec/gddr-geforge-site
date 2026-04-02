@@ -357,7 +357,7 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-1"
                 aria-expanded="true" aria-controls="answer-0-1">
-                What's the main difference between GDDRhammer and GeForge?
+                What's the Rowhammer bug?
               </button>
             </h6>
           </div>
@@ -365,7 +365,7 @@
             <div class="card-body">
               <p>
                 
-                One main differnce is that GDDRHammer exploits the last level page table (PT) and Geforge exploits the last level page directory (PD0). However, both work are able to achieve the same goal of higijacking the GPU page table translation to gain read/write access to the GPU and Host memory.
+                Rowhammer is a DRAM reliability error where repeated accesses to a DRAM row can cause bits to flip in neighboring rows. Rowhammer can be used to violate many security policies employed in a system.
               </p>
             </div>
           </div>
@@ -377,14 +377,15 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-2"
                 aria-expanded="true" aria-controls="answer-0-2">
-                Will an antivirus block this attack?
+                What data can be read by these attacks?
               </button>
             </h6>
           </div>
           <div id="answer-0-2" class="collapse" aria-labelledby="question-0-2">
             <div class="card-body">
               <p>
-                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely (TODO: can we be stronger?) that an antivirus would catch this attack.
+                
+                Anything in memory can be read by an attacker. This can include, but is not limited to, cryptographic keys, private program data, and private API tokens.
               </p>
             </div>
           </div>
@@ -396,14 +397,14 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-3"
                 aria-expanded="true" aria-controls="answer-0-3">
-                What can I do to protect myself from this attack?
+                Will an antivirus block this attack?
               </button>
             </h6>
           </div>
           <div id="answer-0-3" class="collapse" aria-labelledby="question-0-3">
             <div class="card-body">
               <p>
-                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations, as shown in attacks like <a href="https://www.vusec.net/projects/eccploit/" target="_blank" rel="noopener noreferrer">ECCploit</a> and <a href="https://ecc.fail/" target="_blank" rel="noopener noreferrer">ECC.fail</a>.
+                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely (TODO: can we be stronger?) that an antivirus would catch this attack.
               </p>
             </div>
           </div>
@@ -415,11 +416,50 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-4"
                 aria-expanded="true" aria-controls="answer-0-4">
-                Are GPUs with (High Bandwidth Memory) HBM vulnerable to Rowhammer attacks?
+                What can I do to protect myself from this attack?
               </button>
             </h6>
           </div>
           <div id="answer-0-4" class="collapse" aria-labelledby="question-0-4">
+            <div class="card-body">
+              <p>
+                One temporary solution is to enable Error Correcting Codes (ECC) on your GPU. NVIDIA allows this to be done via the command line. However, ECC reduces the overall amount of workable memory and incurs some overhead. Additionally, Rowhammer attacks have been able to overcome ECC mitigations, as shown in attacks like <a href="https://www.vusec.net/projects/eccploit/" target="_blank" rel="noopener noreferrer">ECCploit</a> and <a href="https://ecc.fail/" target="_blank" rel="noopener noreferrer">ECC.fail</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-5">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-5"
+                aria-expanded="true" aria-controls="answer-0-5">
+                What's the main difference between GDDRhammer and GeForge?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-5" class="collapse" aria-labelledby="question-0-5">
+            <div class="card-body">
+              <p>
+                
+                One main differnce is that GDDRHammer exploits the last level page table (PT) and Geforge exploits the last level page directory (PD0). However, both work are able to achieve the same goal of higijacking the GPU page table translation to gain read/write access to the GPU and Host memory.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-6">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-6"
+                aria-expanded="true" aria-controls="answer-0-6">
+                Are GPUs with (High Bandwidth Memory) HBM vulnerable to Rowhammer attacks?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-6" class="collapse" aria-labelledby="question-0-6">
             <div class="card-body">
               <p>
                 Currently, no. A100 (HBM2) and H100 (HBM3) feature on-die ECC, which likely masks single-bit flips. However, future Rowhammer patterns causing multi-bit flips may bypass such ECC, as shown in attacks like <a href="https://www.vusec.net/projects/eccploit/" target="_blank" rel="noopener noreferrer">ECCploit</a> and <a href="https://ecc.fail/" target="_blank" rel="noopener noreferrer">ECC.fail</a>.
@@ -497,7 +537,7 @@
         <div class="modal-body">
           <textarea class="form-control rounded-0" id="citeTextareaGddr" rows="8" readonly>
 @inproceedings{gddrhammer,
-    title     = {GDDRHammer: Greatly Disturbing DRAM Rows â€” Cross-Component Rowhammer Attacks from Modern GPUs},
+    title     = {GDDRHammer: Greatly Disturbing DRAM Rows — Cross-Component Rowhammer Attacks from Modern GPUs},
     booktitle = {Proceedings of the 2026 IEEE Symposium on Security and Privacy (SP)},
     author    = {Hu, Yichang and Brown, Noah and Chen, Yuhang and Bakita, Joshua and Chen, Tianlong and Genkin, Daniel and Kwong, Andrew},
     year      = {2026},
