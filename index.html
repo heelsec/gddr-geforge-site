@@ -61,17 +61,17 @@
             <div class="card-body text-center py-4">
               <h1 class="blue mb-3">GPU Memory Exploits</h1> <!-- (TODO: better linking title?) -->
               <p class="lead mb-3" style="text-align: justify;">
-              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently developed exploits that utilize Rowhammer bit flips on GPUs to enable a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel. In addition, we developed novel Rowhammer techniques that result in a dramatic increase in the number of bit flips found on GDDR6 memory.
+              The <b>GDDRHammer</b> and <b>GeForge</b> teams independently developed exploits that utilize Rowhammer bit flips on Graphics Processing Units (GPUs) to enable a <b>full takeover</b> of Central Processing Unit (CPU) memory from an unprivileged GPU kernel, enabling an attacker to read and write all of the <em>CPU's</em> memory. In addition, we developed novel Rowhammer techniques for GPUs that result in a dramatic increase in the number of bit flips found on GDDR6 memory.
               </p>
               <p class="lead mb-3" style="text-align: justify;">
-              These attacks rely upon the Rowhammer bug, which is a vulnerability in memory hardware that can enable attackers to induce bit flips in memory they do not have access to. Our work demonstrates that these bit flips are widespread in GPU memory and that they pose a severe threat. By flipping bits in the GPU's page tables, we show how an attacker can gain arbitrary read/write access to the <em>CPU's</em> memory. This results in a complete compromise of the machine, allowing the attacker to modify memory at will and open a root shell to take over the machine.
+              These attacks rely upon the Rowhammer bug, which is a vulnerability in memory hardware that can enable attackers to induce bit flips in memory they do not have access to. Our work demonstrates that these bit flips are widespread in GPU memory and that they pose a severe threat. By conducting an attack against the GPU's memory allocator that allows us to flip bits in the GPU's page tables, we show how an attacker can gain arbitrary read/write access to the <em>CPU's</em> memory. This results in a complete compromise of the machine, allowing the attacker to modify memory at will and open a root shell to take over the machine.
    <!--           Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
               </p>
               <p class="lead mb-3" style="text-align: justify;">
               <em>Are modern GPU memory systems resilient to Rowhammer attacks? What is the true prevalence of Rowhammer-induced bit flips on GPU hardware? How can such flips be exploited by attackers and what will it take to defend against them?</em>
               </p>-->
               <p class="lead mb-3" style="text-align: justify;">
-              Both of these papers will be presented at the 47th IEEE Symposium on Security and Privacy in May, 2026. 
+              Both of these papers will be presented at the <a href="https://sp2026.ieee-security.org/">47th IEEE Symposium on Security and Privacy</a> in May, 2026. 
               </p> 
             </div>
           </div>
@@ -357,7 +357,7 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-1"
                 aria-expanded="true" aria-controls="answer-0-1">
-                What's the main difference between GDDRhammer and GeForge?
+                What's the Rowhammer bug?
               </button>
             </h6>
           </div>
@@ -365,7 +365,7 @@
             <div class="card-body">
               <p>
                 
-                One main differnce is that GDDRHammer exploits the last level page table (PT) and Geforge exploits the last level page directory (PD0). However, both work are able to achieve the same goal of higijacking the GPU page table translation to gain read/write access to the GPU and Host memory.
+                Rowhammer is a DRAM reliability error where repeated accesses to a DRAM row can cause bits to flip in neighboring rows. Rowhammer can be used to violate many security policies employed in a system. To combat this, DRAM manufacturers all implement hardware level mitigations in their memory. Conducting a successful Rowhammer attack requires the attacker to reverse engineer these proprietary mitigations.
               </p>
             </div>
           </div>
@@ -384,7 +384,7 @@
           <div id="answer-0-2" class="collapse" aria-labelledby="question-0-2">
             <div class="card-body">
               <p>
-                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely (TODO: can we be stronger?) that an antivirus would catch this attack.
+                Because the illegal privileges are granted on the GPU side and the attack occurs at the hardware level, it is unlikely that an antivirus would catch this attack.
               </p>
             </div>
           </div>
@@ -415,11 +415,31 @@
             <h6>
               <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-4"
                 aria-expanded="true" aria-controls="answer-0-4">
-                Are GPUs with (High Bandwidth Memory) HBM vulnerable to Rowhammer attacks?
+                What's the main difference between GDDRhammer and GeForge?
               </button>
             </h6>
           </div>
           <div id="answer-0-4" class="collapse" aria-labelledby="question-0-4">
+            <div class="card-body">
+              <p>
+                
+                One main differnce is that GDDRHammer exploits the last level page table (PT) and Geforge exploits the last level page directory (PD0). However, both work are able to achieve the same goal of higijacking the GPU page table translation to gain read/write access to the GPU and Host memory.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="accordion">
+        <div class="card">
+          <div id="question-0-5">
+            <h6>
+              <button class="btn btn-link collapsed text-start collapse-toggle" data-bs-toggle="collapse" data-bs-target="#answer-0-5"
+                aria-expanded="true" aria-controls="answer-0-5">
+                Are GPUs with (High Bandwidth Memory) HBM vulnerable to Rowhammer attacks?
+              </button>
+            </h6>
+          </div>
+          <div id="answer-0-5" class="collapse" aria-labelledby="question-0-5">
             <div class="card-body">
               <p>
                 Currently, no. A100 (HBM2) and H100 (HBM3) feature on-die ECC, which likely masks single-bit flips. However, future Rowhammer patterns causing multi-bit flips may bypass such ECC, as shown in attacks like <a href="https://www.vusec.net/projects/eccploit/" target="_blank" rel="noopener noreferrer">ECCploit</a> and <a href="https://ecc.fail/" target="_blank" rel="noopener noreferrer">ECC.fail</a>.
