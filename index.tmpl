@@ -64,15 +64,15 @@
               The <b>GDDRHammer</b> and <b>GeForge</b> teams independently developed exploits that utilize Rowhammer bit flips on GPUs to enable a <b>full takeover</b> of CPU memory from an unprivileged GPU kernel. In addition, we developed novel Rowhammer techniques that result in a dramatic increase in the number of bit flips found on GDDR6 memory.
               </p>
               <p class="lead mb-3" style="text-align: justify;">
-              Rowhammer is a vulnerability in memory hardware that can enable attackers to induce bit flips in the memory. Our work demonstrates that these bit flips are widespread and that they pose a severe threat. By flipping bits in the GPU's page tables, we show how an attacker can gain arbitrary read/write access to the <em>CPU's</em> memory. This results in a complete compromise of the machine, allowing the attacker to modify memory at will and open a root shell to take over the machine.
+              These attacks rely upon the Rowhammer bug, which is a vulnerability in memory hardware that can enable attackers to induce bit flips in memory they do not have access to. Our work demonstrates that these bit flips are widespread in GPU memory and that they pose a severe threat. By flipping bits in the GPU's page tables, we show how an attacker can gain arbitrary read/write access to the <em>CPU's</em> memory. This results in a complete compromise of the machine, allowing the attacker to modify memory at will and open a root shell to take over the machine.
    <!--           Due to their high cost, GPUs are often shared by many users, e.g. in a cloud environment. However, such sharing necessitates strong security guarantees, as a shared GPU can become a potential attack vector. Meanwhile, the Rowhammer vulnerability has been shown to enable attackers to induce bit flips in physical CPU DRAM across virtual address spaces and even across security domains in modern processors. Taken together, these trends raise several critical questions:
               </p>
               <p class="lead mb-3" style="text-align: justify;">
               <em>Are modern GPU memory systems resilient to Rowhammer attacks? What is the true prevalence of Rowhammer-induced bit flips on GPU hardware? How can such flips be exploited by attackers and what will it take to defend against them?</em>
-              </p>
+              </p>-->
               <p class="lead mb-3" style="text-align: justify;">
-              We demonstrate that the Rowhammer threat on GPUs is severe and widespread. In addition, we construct exploits that attackers could use to steal secrets from a machine, as well as potential defenses against these attacks.
-              </p> -->
+              Both of these papers will be presented at the 47th IEEE Symposium on Security and Privacy in May, 2026. 
+              </p> 
             </div>
           </div>
         </div>
